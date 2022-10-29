@@ -11,62 +11,132 @@
     ></script>
   </head>
   <body>
+    <!-- style="display: flex; flex-direction: column" -->
     <div>
-      <svg width="400" height="110">
-        <rect
-          width="300"
-          height="40"
-          style="fill: rgb(0, 0, 255); stroke-width: 1; stroke: rgb(0, 0, 0)"
-        />
-        <rect
-          width="300"
-          heigth="40"
-          style="fill: rgb(149, 37, 37); stroke-width: 1; stroke: rgb(0, 0, 0)"
-        />
+      <div>
+        <svg viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+          <text x="5" style="font: italic 13px sans-serif">Java</text>
+          <rect x="10" width="100" height="10" style="fill: aqua" />
+          <rect x="0" y="11" width="100" height="10" style="fill: orange" />
+          <rect x="0" y="22" width="100" height="10" style="fill: yellow" />
+          <rect x="0" y="33" width="100" height="10" style="fill: brown" />
+        </svg>
+      </div>
+      <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .small {
+            font: italic 13px sans-serif;
+          }
+          .heavy {
+            font: bold 30px sans-serif;
+          }
+
+          /* Note that the color of the text is set with the    *
+     * fill property, the color property is for HTML only */
+          .Rrrrr {
+            font: italic 40px serif;
+            fill: red;
+          }
+        </style>
+
+        <text x="20" y="35" class="small">My</text>
+        <text x="40" y="35" class="heavy">cat</text>
+        <text x="55" y="55" class="small">is</text>
+        <text x="65" y="55" class="Rrrrr">Grumpy!</text>
       </svg>
-    </div>
-    <div>
-      <script type="text/javascript">
-        google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ["Code", "Lines", { role: "style" }],
-            ["Java", 885311, "orange"],
-            ["Go", 111282, "blue"],
-            ["Python", 6351, "gold"],
-            ["JavScript", 21612, "brown"],
-            ["Groovy", 179218, "red"],
-            ["C", 600, "color: #e5e4e2"],
-          ]);
 
-          var view = new google.visualization.DataView(data);
-          view.setColumns([
-            0,
-            1,
-            {
-              calc: "stringify",
-              sourceColumn: 1,
-              type: "string",
-              role: "annotation",
-            },
-            2,
-          ]);
+      <div style="width: 300px">
+        <svg viewBox="0 20 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- arrowhead marker definition -->
+            <marker
+              id="arrow"
+              viewBox="0 0 10 10"
+              refX="5"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 0 L 10 5 L 0 10 z" />
+            </marker>
 
-          var options = {
-            title: "Code lines",
-            width: 600,
-            height: 400,
-            bar: { groupWidth: "95%" },
-            legend: { position: "none" },
-          };
-          var chart = new google.visualization.BarChart(
-            document.getElementById("barchart_values")
-          );
-          chart.draw(view, options);
-        }
-      </script>
-      <div id="barchart_values" style="width: 900px; height: 300px"></div>
+            <!-- simple dot marker definition -->
+            <marker
+              id="dot"
+              viewBox="0 0 10 10"
+              refX="5"
+              refY="5"
+              markerWidth="5"
+              markerHeight="5"
+            >
+              <circle cx="5" cy="5" r="5" fill="red" />
+            </marker>
+          </defs>
+
+          <!-- Coordinate axes with a arrowhead in both direction -->
+          <polyline
+            points="10,10 10,90 90,90"
+            fill="none"
+            stroke="black"
+            marker-start="url(#arrow)"
+            marker-end="url(#arrow)"
+          />
+
+          <!-- Data line with polymarkers -->
+          <polyline
+            points="15,80 29,50 43,60 57,30 71,40 85,15"
+            fill="none"
+            stroke="grey"
+            marker-start="url(#dot)"
+            marker-mid="url(#dot)"
+            marker-end="url(#dot)"
+          />
+        </svg>
+      </div>
     </div>
+
+    <div id="barchart_values" style="width: 900px; height: 300px"></div>
+
+    <script type="text/javascript">
+      google.charts.load("current", { packages: ["corechart"] });
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ["Code", "Lines", { role: "style" }],
+          ["Java", 885311, "orange"],
+          ["Go", 111282, "blue"],
+          ["Python", 6351, "gold"],
+          ["JavScript", 21612, "brown"],
+          ["Groovy", 179218, "red"],
+          ["C", 600, "color: #e5e4e2"],
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([
+          0,
+          1,
+          {
+            calc: "stringify",
+            sourceColumn: 1,
+            type: "string",
+            role: "annotation",
+          },
+          2,
+        ]);
+
+        var options = {
+          title: "Code lines",
+          width: 600,
+          height: 400,
+          bar: { groupWidth: "95%" },
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.BarChart(
+          document.getElementById("barchart_values")
+        );
+        chart.draw(view, options);
+      }
+    </script>
   </body>
 </html>
